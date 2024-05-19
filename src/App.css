@@ -1,0 +1,190 @@
+
+/* font */
+html{
+  font-family: 'Noto Sans JP', 'Hiragino Kaku Gothic Pro', 'メイリオ', 'ＭＳ Ｐゴシック', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 400;
+  line-height: 1;
+  color: #000;
+
+  ::selection {
+    background-color: #666;
+  }
+}
+.Inter_B {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  letter-spacing: .02em;
+}
+
+
+/* reset */
+button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  padding: 0;
+  appearance: none;
+}
+select {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+  border-radius: 0;
+  border: 0;
+  margin: 0;
+  padding: 0;
+  background: none transparent;
+  vertical-align: middle;
+  font-size: inherit;
+  color: inherit;
+  box-sizing: content-box;
+}
+ul {
+  margin: 0;
+  padding: 0;
+}
+ul li {
+  list-style: none;
+}
+
+
+/* style */
+h1 {
+  font-size: 48px;
+  margin: 0;
+}
+h2 {
+  font-size: 36px;
+  margin: 0;
+}
+p {
+  font-size: 20px;
+  letter-spacing: .01em;
+  margin: 0;
+  width: fit-content;
+}
+
+.todo {
+  width: 700px;
+  padding: 70px 0 120px;
+  margin: 0 auto;
+}
+
+/* add_todo */
+.add_todo {
+  width: 100%;
+  padding-bottom: 115px;
+  margin-top: 50px;
+  border-bottom: 1px solid #000;
+}
+
+.add_todo .add_todo_cont {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+}
+
+.add_todo .add_todo_cont .triangle {
+  width: 12px;
+  height: 6px;
+  background-color: #000;
+  clip-path: polygon(0 0, 100% 0, 50% 100%);;
+  position: absolute;
+  top: 50%;
+  right: 20px;
+  transform: translateY(-50%);
+}
+
+.add_todo .add_todo_cont:not(:first-child) {
+  margin-top: 20px;
+}
+
+.add_todo div input, .add_todo .add_todo_cont select {
+  width: 500px;
+  box-sizing: border-box;
+  padding: 6px 8px;
+  border: 1px solid #000;
+  background-color: #f7f7f7;
+  font-size: 14px;
+  line-height: 1.4em;
+}
+
+.add_todo .add_btn_wrapper {
+  width: 100%;
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
+}
+
+.add_todo .add_btn_wrapper button {
+  font-size: 24px;
+  border-bottom: 2px solid #000;
+}
+.add_todo .add_btn_wrapper button:hover {
+  border-bottom: 2px solid #fff;
+}
+
+/* new_task */
+.new_task {
+  width: 100%;
+  margin-top: 50px;
+}
+
+.new_task .sort_btn_wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: right;
+}
+
+.new_task .sort_btn_wrapper button {
+  font-size: 24px;
+  border-bottom: 2px solid #000;
+}
+.new_task .sort_btn_wrapper button:hover {
+  border-bottom: 2px solid #fff;
+}
+
+.new_task  ul {
+  margin-top: 20px;
+}
+
+.new_task  ul li {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 20px;
+  border: 1px solid #000;
+  background-color: #f7f7f7;
+  position: relative;
+}
+
+.new_task  ul li .created_date {
+  width: fit-content;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+.new_task  ul li p {
+  font-size: 14px;
+  line-height: 2em;
+}
+
+.new_task  ul li .task_btn_wrapper {
+  width: 100%;
+  margin: 20px 20px 0 0;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.new_task  ul li .task_btn_wrapper button, .new_task  ul .task_btn_wrapper p{
+  font-size: 24px;
+  line-height: 1em;
+}
+
+.new_task  ul li .task_btn_wrapper button {
+  border-bottom: 2px solid #000;
+}
+.new_task  ul li .task_btn_wrapper button:hover {
+  border-bottom: 2px solid #fff;
+}
