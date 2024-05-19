@@ -192,6 +192,14 @@ p {
   border: 1px solid #000;
   background-color: #f7f7f7;
   position: relative;
+
+  &.visible {
+    display: block;
+  }
+
+  &.invisible {
+    display: none;
+  }
 }
 
 .new_task  ul li .created_date {

@@ -17,7 +17,6 @@ function App() {
   const [todoTerm, setTodoTerm] = useState('');
   const [todoStatus, setTodoStatus] = useState('Waiting');
   const [todoCont, setTodoCont] = useState('');
-  const [todoVisible, setTodoVisible] = useState('visible');
 
   const [todoSort, setTodoSort] = useState('Sort');
 
@@ -60,16 +59,18 @@ function App() {
   };
 
   const onChangeSort = (e) => {
-    const task = [...newTask];
-    task.map((task) => {
-      if( task.status == e.target.value){
+    const sort = e.target.value;
+    setTodoSort(sort);
+
+    let task = [...newTask];
+    task.map((t) => {
+      if( t.status === sort ){
+        t.sort = 'invisible'
+      } else {
+        t.sort = 'visible'
       }
     })
     setNewTask(task);
-    setTodoTitle('');
-    setTodoTerm('');
-    setTodoStatus('Waiting');
-    setTodoCont('');
   }
 
   // click
@@ -80,6 +81,13 @@ function App() {
     const date = newDate.getDate(); // 日
     const todoDate = `${year} / ${month} / ${date}`;
 
+    let sort;
+    if( todoSort !== todoStatus){
+      sort = 'visible'
+    } else{
+      sort = 'invisible'
+    }
+
     const task = [...newTask];
     task.push({
       title: todoTitle,
@@ -87,7 +95,7 @@ function App() {
       status: todoStatus,
       cont: todoCont,
       date: todoDate,
-      visible: todoVisible
+      sort: sort
     });
     setNewTask(task);
     setTodoTitle('');
@@ -125,6 +133,13 @@ function App() {
       cont: editCont,
       date: editDate
     };
+    task.map((t) => {
+      if( t.status === todoSort ){
+        t.sort = 'invisible'
+      } else {
+        t.sort = 'visible'
+      }
+    })
     setNewTask(task);
 
     document.body.classList.remove('visible');
@@ -212,7 +227,7 @@ function App() {
           <ul>
             {
               newTask.map((task, index) => (
-                <li key={index}>
+                <li key={index} className={task.sort}>
                   <p>タイトル : {task.title}</p>
                   <p>期日 : {task.term}</p>
                   <p>ステータス : {task.status}</p>
