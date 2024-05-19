@@ -14,6 +14,12 @@ function App() {
   const [todoStatus, setTodoStatus] = useState('Waiting');
   const [todoCont, setTodoCont] = useState('');
 
+  const [editIndex, setEditIndex] = useState('');
+  const [editTitle, setEditTitle] = useState('');
+  const [editTerm, setEditTerm] = useState('');
+  const [editStatus, setEditStatus] = useState('');
+  const [editCont, setEditCont] = useState('');
+
   const [newTask, setNewTask] = useState([]);
 
   // input
@@ -28,6 +34,19 @@ function App() {
   };
   const onChangeCont = (e) => {
     setTodoCont(e.target.value);
+  };
+
+  const onChangeEditTitle = (e) => {
+    setEditTitle(e.target.value);
+  };
+  const onChangeEditTerm = (e) => {
+    setEditTerm(e.target.value);
+  };
+  const onChangeEditStatus = (e) => {
+    setEditStatus(e.target.value);
+  };
+  const onChangeEditCont = (e) => {
+    setEditCont(e.target.value);
   };
 
   // click
@@ -51,6 +70,35 @@ function App() {
     setTodoTerm('');
     setTodoStatus('Waiting');
     setTodoCont('');
+  };
+  const onClickDelete = (index) => {
+    const todo = [...newTask];
+    todo.splice(index,1)
+    setNewTask(todo);
+  };
+  const onClickEdit = (index) => {
+    setEditIndex(index);
+    setEditTitle(newTask[index].title);
+    setEditTerm(newTask[index].term);
+    setEditStatus(newTask[index].status);
+    setEditCont(newTask[index].cont);
+  }
+  const onClickEditKeep = () => {
+    const newDate = new Date();
+    const year = newDate.getFullYear(); // 年
+    const month = newDate.getMonth(); // 月
+    const date = newDate.getDate(); // 日
+    const editDate = `${year} / ${month} / ${date}`;
+
+    let task = [...newTask];
+    task[editIndex] = {
+      title: editTitle,
+      term: editTerm,
+      status: editStatus,
+      cont: editCont,
+      date: editDate
+    };
+    setNewTask(task);
   }
 
   return (
@@ -128,12 +176,14 @@ function App() {
                   <div className='task_btn_wrapper'>
                     <button
                       className='task_btn_edit Inter_B'
+                      onClick={() => onClickEdit(index)}
                     >
                       Edit
                     </button>
                     <p>&nbsp;/&nbsp;</p>
                     <button
                       className='task_btn_dis Inter_B'
+                      onClick={() => onClickDelete(index)}
                     >
                       Discontinued
                     </button>
@@ -143,6 +193,58 @@ function App() {
             }
           </ul>
 
+        </div>
+
+        <div className='edit_todo'>
+          <div className='edit_todo_cont'>
+            <p>タイトル</p>
+            <input
+              id='editTitle'
+              value={editTitle}
+              onChange={onChangeEditTitle}
+            />
+          </div>
+          <div className='edit_todo_cont'>
+            <p>期日</p>
+            <input
+              id='editTerm'
+              value={editTerm}
+              onChange={onChangeEditTerm}
+            />
+          </div>
+          <div className='edit_todo_cont'>
+            <p>ステータス</p>
+            <select
+              id='editStatus'
+              value={editStatus}
+              onChange={onChangeEditStatus}
+            >
+              {
+                statusArray.map((status) => {
+                  return (
+                    <option value={status} key={status}>{status}</option>
+                  )
+                })
+              }
+            </select>
+            <div className='triangle'></div>
+          </div>
+          <div className='edit_todo_cont'>
+            <p>内容</p>
+            <input
+              id='editCont'
+              value={editCont}
+              onChange={onChangeEditCont}
+            />
+          </div>
+          <div className='edit_btn_wrapper'>
+            <button
+              className='Inter_B'
+              onClick={onClickEditKeep}
+            >
+              Keep
+            </button>
+          </div>
         </div>
       </div>
     </>
