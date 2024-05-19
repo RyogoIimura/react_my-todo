@@ -79,28 +79,52 @@ p {
   border-bottom: 1px solid #000;
 }
 
-.add_todo .add_todo_cont {
+.edit_back {
+  width: 100vw;
+  height: 100vh;
+  background-color: #000;
+  opacity: .5;
+  position: fixed;
+  z-index: 100;
+  top: 0;
+  left: 0;
+}
+.edit_todo {
+  width: 700px;
+  padding: 50px 20px 115px;
+  background-color: #fff;
+  position: fixed;
+  z-index: 110;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.add_todo_cont,
+.edit_todo_cont {
   display: flex;
   justify-content: space-between;
   position: relative;
+
+  .triangle {
+    width: 12px;
+    height: 6px;
+    background-color: #000;
+    clip-path: polygon(0 0, 100% 0, 50% 100%);;
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+  }
 }
 
-.add_todo .add_todo_cont .triangle {
-  width: 12px;
-  height: 6px;
-  background-color: #000;
-  clip-path: polygon(0 0, 100% 0, 50% 100%);;
-  position: absolute;
-  top: 50%;
-  right: 20px;
-  transform: translateY(-50%);
-}
-
-.add_todo .add_todo_cont:not(:first-child) {
+.add_todo_cont:not(:first-child),
+.edit_todo_cont:not(:first-child) {
   margin-top: 20px;
 }
 
-.add_todo div input, .add_todo .add_todo_cont select {
+.add_todo_cont input, .add_todo_cont select,
+.edit_todo_cont input, .edit_todo_cont select {
   width: 500px;
   box-sizing: border-box;
   padding: 6px 8px;
@@ -110,19 +134,22 @@ p {
   line-height: 1.4em;
 }
 
-.add_todo .add_btn_wrapper {
+.add_btn_wrapper,
+.edit_btn_wrapper {
   width: 100%;
   margin-top: 50px;
   display: flex;
   justify-content: center;
 }
 
-.add_todo .add_btn_wrapper button {
+.add_btn_wrapper button,
+.edit_btn_wrapper button {
   font-size: 24px;
   border-bottom: 2px solid #000;
-}
-.add_todo .add_btn_wrapper button:hover {
-  border-bottom: 2px solid #fff;
+
+  &:hover {
+    border-bottom: 2px solid #fff;
+  }
 }
 
 /* new_task */
@@ -135,14 +162,23 @@ p {
   width: 100%;
   display: flex;
   justify-content: right;
+  position: relative;
+
+  .triangle {
+    width: 12px;
+    height: 6px;
+    background-color: #000;
+    clip-path: polygon(0 0, 100% 0, 50% 100%);;
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+  }
 }
 
-.new_task .sort_btn_wrapper button {
+.new_task .sort_btn_wrapper select {
+  width: 160px;
   font-size: 24px;
-  border-bottom: 2px solid #000;
-}
-.new_task .sort_btn_wrapper button:hover {
-  border-bottom: 2px solid #fff;
 }
 
 .new_task  ul {
@@ -184,7 +220,25 @@ p {
 
 .new_task  ul li .task_btn_wrapper button {
   border-bottom: 2px solid #000;
+
+  &:hover {
+    border-bottom: 2px solid #fff;
+  }
 }
-.new_task  ul li .task_btn_wrapper button:hover {
-  border-bottom: 2px solid #fff;
+
+
+/* animation */
+body {
+
+  &.visible {
+    overflow: hidden;
+  }
+}
+
+.edit_back, .edit_todo {
+  display: none;
+
+  &.visible {
+    display: block;
+  }
 }

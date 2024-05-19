@@ -7,18 +7,28 @@ function App() {
     'Working',
     'Completed'
   ];
+  const sortArray = [
+    'Sort',
+    ...statusArray
+  ];
 
   // useState
   const [todoTitle, setTodoTitle] = useState('');
   const [todoTerm, setTodoTerm] = useState('');
   const [todoStatus, setTodoStatus] = useState('Waiting');
   const [todoCont, setTodoCont] = useState('');
+  const [todoVisible, setTodoVisible] = useState('visible');
+
+  const [todoSort, setTodoSort] = useState('Sort');
 
   const [editIndex, setEditIndex] = useState('');
   const [editTitle, setEditTitle] = useState('');
   const [editTerm, setEditTerm] = useState('');
   const [editStatus, setEditStatus] = useState('');
   const [editCont, setEditCont] = useState('');
+
+  const edit_back = document.getElementById('edit_back');
+  const edit_todo = document.getElementById('edit_todo');
 
   const [newTask, setNewTask] = useState([]);
 
@@ -49,6 +59,19 @@ function App() {
     setEditCont(e.target.value);
   };
 
+  const onChangeSort = (e) => {
+    const task = [...newTask];
+    task.map((task) => {
+      if( task.status == e.target.value){
+      }
+    })
+    setNewTask(task);
+    setTodoTitle('');
+    setTodoTerm('');
+    setTodoStatus('Waiting');
+    setTodoCont('');
+  }
+
   // click
   const onClickAdd = () => {
     const newDate = new Date();
@@ -63,7 +86,8 @@ function App() {
       term: todoTerm,
       status: todoStatus,
       cont: todoCont,
-      date: todoDate
+      date: todoDate,
+      visible: todoVisible
     });
     setNewTask(task);
     setTodoTitle('');
@@ -77,6 +101,9 @@ function App() {
     setNewTask(todo);
   };
   const onClickEdit = (index) => {
+    document.body.classList.add('visible');
+    edit_back.classList.add('visible');
+    edit_todo.classList.add('visible');
     setEditIndex(index);
     setEditTitle(newTask[index].title);
     setEditTerm(newTask[index].term);
@@ -99,6 +126,10 @@ function App() {
       date: editDate
     };
     setNewTask(task);
+
+    document.body.classList.remove('visible');
+    edit_back.classList.remove('visible');
+    edit_todo.classList.remove('visible');
   }
 
   return (
@@ -161,7 +192,21 @@ function App() {
         <div className='new_task'>
           <h2 className='Inter_B'>New task</h2>
           <div className='sort_btn_wrapper'>
-            <button className='sort_btn Inter_B'>Sort</button>
+            <select
+              className='sort Inter_B'
+              id='sort'
+              value={todoSort}
+              onChange={onChangeSort}
+            >
+              {
+                sortArray.map((sort) => {
+                  return (
+                    <option value={sort} key={sort}>{sort}</option>
+                  )
+                })
+              }
+            </select>
+            <div className='triangle'></div>
           </div>
 
           <ul>
@@ -195,7 +240,9 @@ function App() {
 
         </div>
 
-        <div className='edit_todo'>
+        <div className='edit_back' id='edit_back'>
+        </div>
+        <div className='edit_todo' id='edit_todo'>
           <div className='edit_todo_cont'>
             <p>タイトル</p>
             <input
