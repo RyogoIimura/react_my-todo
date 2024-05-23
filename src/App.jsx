@@ -16,41 +16,54 @@ function App() {
   ];
 
   // useState
-  const [newTodo, setNewTodo] = useState({
-    title: '',
-    term: '',
-    status: 'Waiting',
-    cont: ''
-  });
+  const [todoTitle, setTodoTitle] = useState('');
+  const [todoTerm, setTodoTerm] = useState('');
+  const [todoStatus, setTodoStatus] = useState('Waiting');
+  const [todoCont, setTodoCont] = useState('');
 
-  const [editTodo, setEditTodo] = useState({
-    title: '',
-    term: '',
-    status: '',
-    cont: '',
-    index: ''
-  });
+  const [todoSort, setTodoSort] = useState('Sort');
+
+  const [editIndex, setEditIndex] = useState('');
+  const [editTitle, setEditTitle] = useState('');
+  const [editTerm, setEditTerm] = useState('');
+  const [editStatus, setEditStatus] = useState('');
+  const [editCont, setEditCont] = useState('');
 
   const edit_back = document.getElementById('edit_back');
   const edit_todo = document.getElementById('edit_todo');
 
-  const [todoSort, setSort] = useState('Sort');
   const [newTask, setNewTask] = useState([]);
 
   // input
-  const onChangeTitle = (e) => setNewTodo((state) => ({ ...state, title: e.target.value}));
-  const onChangeTerm = (e) => setNewTodo((state) => ({ ...state, term: e.target.value}));
-  const onChangeStatus = (e) => setNewTodo((state) => ({ ...state, status: e.target.value}));
-  const onChangeCont = (e) => setNewTodo((state) => ({ ...state, cont: e.target.value}));
+  const onChangeTitle = (e) => {
+    setTodoTitle(e.target.value);
+  };
+  const onChangeTerm = (e) => {
+    setTodoTerm(e.target.value);
+  };
+  const onChangeStatus = (e) => {
+    setTodoStatus(e.target.value);
+  };
+  const onChangeCont = (e) => {
+    setTodoCont(e.target.value);
+  };
 
-  const onChangeEditTitle = (e) => setEditTodo((state) => ({ ...state, title: e.target.value}));
-  const onChangeEditTerm = (e) => setEditTodo((state) => ({ ...state, term: e.target.value}));
-  const onChangeEditStatus = (e) => setEditTodo((state) => ({ ...state, status: e.target.value}));
-  const onChangeEditCont = (e) => setEditTodo((state) => ({ ...state, cont: e.target.value}));
+  const onChangeEditTitle = (e) => {
+    setEditTitle(e.target.value);
+  };
+  const onChangeEditTerm = (e) => {
+    setEditTerm(e.target.value);
+  };
+  const onChangeEditStatus = (e) => {
+    setEditStatus(e.target.value);
+  };
+  const onChangeEditCont = (e) => {
+    setEditCont(e.target.value);
+  };
 
   const onChangeSort = (e) => {
     const sort = e.target.value;
-    setSort(sort);
+    setTodoSort(sort);
 
     let task = [...newTask];
     task.map((t) => {
@@ -72,7 +85,7 @@ function App() {
     const todoDate = `${year} / ${month} / ${date}`;
 
     let sort;
-    if( todoSort === newTodo.status || todoSort === 'Sort' ){
+    if( todoSort === todoStatus || todoSort === 'Sort' ){
       sort = 'visible'
     } else{
       sort = 'invisible'
@@ -80,21 +93,18 @@ function App() {
 
     const task = [...newTask];
     task.push({
-      title: newTodo.title,
-      term: newTodo.term,
-      status: newTodo.status,
-      cont: newTodo.cont,
+      title: todoTitle,
+      term: todoTerm,
+      status: todoStatus,
+      cont: todoCont,
       date: todoDate,
       sort: sort
     });
     setNewTask(task);
-    console.log(task);
-    setNewTodo({
-      title: '',
-      term: '',
-      status: 'Waiting',
-      cont: ''
-    });
+    setTodoTitle('');
+    setTodoTerm('');
+    setTodoStatus('Waiting');
+    setTodoCont('');
   };
   const onClickDelete = (index) => {
     const todo = [...newTask];
@@ -105,13 +115,11 @@ function App() {
     document.body.classList.add('visible');
     edit_back.classList.add('visible');
     edit_todo.classList.add('visible');
-    setEditTodo({
-      title: newTask[index].title,
-      term: newTask[index].term,
-      status: newTask[index].status,
-      cont: newTask[index].cont,
-      index: index
-    });
+    setEditIndex(index);
+    setEditTitle(newTask[index].title);
+    setEditTerm(newTask[index].term);
+    setEditStatus(newTask[index].status);
+    setEditCont(newTask[index].cont);
   }
   const onClickEditKeep = () => {
     const newDate = new Date();
@@ -121,11 +129,11 @@ function App() {
     const editDate = `${year} / ${month} / ${date}`;
 
     let task = [...newTask];
-    task[editTodo.index] = {
-      title: editTodo.title,
-      term: editTodo.term,
-      status: editTodo.status,
-      cont: editTodo.cont,
+    task[editIndex] = {
+      title: editTitle,
+      term: editTerm,
+      status: editStatus,
+      cont: editCont,
       date: editDate
     };
     task.map((t) => {
@@ -148,10 +156,10 @@ function App() {
         <h1 className='Inter_B'>My todo APP</h1>
 
         <AddTodo
-          todoTitle = {newTodo.title}
-          todoTerm = {newTodo.term}
-          todoStatus = {newTodo.status}
-          todoCont = {newTodo.cont}
+          todoTitle = {todoTitle}
+          todoTerm = {todoTerm}
+          todoStatus = {todoStatus}
+          todoCont = {todoCont}
           onChangeTitle = {onChangeTitle}
           onChangeTerm = {onChangeTerm}
           onChangeStatus = {onChangeStatus}
@@ -172,10 +180,10 @@ function App() {
         <div className='edit_back' id='edit_back'>
         </div>
         <EditTodo
-          editTitle = {editTodo.title}
-          editTerm = {editTodo.term}
-          editStatus = {editTodo.status}
-          editCont = {editTodo.cont}
+          editTitle = {editTitle}
+          editTerm = {editTerm}
+          editStatus = {editStatus}
+          editCont = {editCont}
           onChangeEditTitle = {onChangeEditTitle}
           onChangeEditTerm = {onChangeEditTerm}
           onChangeEditStatus = {onChangeEditStatus}
