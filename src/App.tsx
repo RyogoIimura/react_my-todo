@@ -1,54 +1,45 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
+// css
+import './App.css';
+// components
 import { AddTodo } from './components/AddTodo';
 import { NewTask } from './components/NewTask';
 import { EditTodo } from './components/EditTodo';
-import './App.css';
+// types
+import { Todo } from './types/todo';
+
 
 function App() {
-  const statusArray = [
+  const statusArray: Array<string> = [
     'Waiting',
     'Working',
     'Completed'
   ];
-  const sortArray = [
+  const sortArray: Array<string> = [
     'Sort',
     ...statusArray
   ];
 
   // useState
-  type Todo = {
-    title : string,
-    term : number | string,
-    status : string,
-    cont: string,
-  };
-  const [newTodo, setNewTodo] = useState<Todo>({
+  const [newTodo, setNewTodo] = useState<Omit<Todo, "index">>({
     title: '',
     term: '',
     status: 'Waiting',
     cont: ''
   });
-
-  type EditTodo = {
-    title : string,
-    term : number | string,
-    status : string,
-    cont: string,
-    index: any
-  };
-  const [editTodo, setEditTodo] = useState<EditTodo>({
+  const [editTodo, setEditTodo] = useState<Todo>({
     title: '',
     term: '',
     status: '',
     cont: '',
-    index: ''
+    index: 0
   });
 
-  const edit_back = document.getElementById('edit_back');
-  const edit_todo = document.getElementById('edit_todo');
+  const edit_back: any = document.getElementById('edit_back');
+  const edit_todo: any = document.getElementById('edit_todo');
 
   const [todoSort, setSort] = useState('Sort');
-  const [newTask, setNewTask] = useState([]);
+  const [newTask, setNewTask] = useState<Array<Todo>>([]);
 
   // input
   const onChangeTitle = (e) => setNewTodo((state) => ({ ...state, title: e.target.value}));
@@ -65,7 +56,7 @@ function App() {
     const sort = e.target.value;
     setSort(sort);
 
-    let task = [...newTask];
+    let task: any = [...newTask];
     task.map((t) => {
       if( t.status === sort || sort === 'Sort' ){
         t.sort = 'visible'
@@ -84,14 +75,14 @@ function App() {
     const date = newDate.getDate(); // 日
     const todoDate = `${year} / ${month} / ${date}`;
 
-    let sort;
+    let sort: any;
     if( todoSort === newTodo.status || todoSort === 'Sort' ){
       sort = 'visible'
     } else{
       sort = 'invisible'
     }
 
-    const task = [...newTask];
+    const task: any = [...newTask];
     task.push({
       title: newTodo.title,
       term: newTodo.term,
@@ -109,12 +100,12 @@ function App() {
       cont: ''
     });
   };
-  const onClickDelete = (index) => {
+  const onClickDelete = (index: number) => {
     const todo = [...newTask];
     todo.splice(index,1)
     setNewTask(todo);
   };
-  const onClickEdit = (index) => {
+  const onClickEdit = (index: number) => {
     document.body.classList.add('visible');
     edit_back.classList.add('visible');
     edit_todo.classList.add('visible');
@@ -133,7 +124,7 @@ function App() {
     const date = newDate.getDate(); // 日
     const editDate = `${year} / ${month} / ${date}`;
 
-    let task = [...newTask];
+    let task: any = [...newTask];
     task[editTodo.index] = {
       title: editTodo.title,
       term: editTodo.term,
