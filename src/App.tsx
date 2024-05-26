@@ -16,14 +16,27 @@ function App() {
   ];
 
   // useState
-  const [newTodo, setNewTodo] = useState({
+  type Todo = {
+    title : string,
+    term : number | string,
+    status : string,
+    cont: string,
+  };
+  const [newTodo, setNewTodo] = useState<Todo>({
     title: '',
     term: '',
     status: 'Waiting',
     cont: ''
   });
 
-  const [editTodo, setEditTodo] = useState({
+  type EditTodo = {
+    title : string,
+    term : number | string,
+    status : string,
+    cont: string,
+    index: any
+  };
+  const [editTodo, setEditTodo] = useState<EditTodo>({
     title: '',
     term: '',
     status: '',
