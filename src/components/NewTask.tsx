@@ -6,10 +6,10 @@ export const NewTask = (props) => {
   const {
     todoSort,
     newTask,
-    onChangeSort,
     onClickEdit,
     onClickDelete,
-    sortArray
+    onClickSort,
+    // sortArray
   } = props;
 
   return (
@@ -17,21 +17,13 @@ export const NewTask = (props) => {
       <div className='new_task'>
         <h2 className='Inter_B'>New task</h2>
         <div className='sort_btn_wrapper'>
-          <select
+          <Button
             className='sort Inter_B'
             id='sort'
-            value={todoSort}
-            onChange={onChangeSort}
+            onClick={onClickSort}
           >
-            {
-              sortArray.map((sort) => {
-                return (
-                  <option value={sort} key={sort}>{sort}</option>
-                )
-              })
-            }
-          </select>
-          <div className='triangle'></div>
+            {todoSort}
+          </Button>
         </div>
 
         <ul>

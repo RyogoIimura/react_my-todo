@@ -15,10 +15,10 @@ function App() {
     'Working',
     'Completed'
   ];
-  const sortArray: Array<string> = [
-    'Sort',
-    ...statusArray
-  ];
+  // const sortArray: Array<string> = [
+  //   'Sort',
+  //   ...statusArray
+  // ];
 
   // useState
   const [newTodo, setNewTodo] = useState<Omit<Todo, "index">>({
@@ -52,18 +52,17 @@ function App() {
   const onChangeEditStatus = (e) => setEditTodo((state) => ({ ...state, status: e.target.value}));
   const onChangeEditCont = (e) => setEditTodo((state) => ({ ...state, cont: e.target.value}));
 
-  const onChangeSort = (e) => {
-    const sort = e.target.value;
-    setSort(sort);
-
+  const onClickSort = () => {
     let task: any = [...newTask];
-    task.map((t) => {
-      if( t.status === sort || sort === 'Sort' ){
-        t.sort = 'visible'
-      } else {
-        t.sort = 'invisible'
-      }
-    })
+    if( todoSort == 'Descending' || todoSort == 'Sort'){
+      setSort('Ascending')
+      task.date.sort((a,b) => (a < b ? -1 : 1))
+    }
+    if( todoSort == 'Ascending' ){
+      setSort('Descending')
+      task.date.sort((a,b) => (a > b ? -1 : 1))
+
+    }
     setNewTask(task);
   }
 
@@ -75,12 +74,12 @@ function App() {
     const date = newDate.getDate(); // 日
     const todoDate = `${year} / ${month} / ${date}`;
 
-    let sort: any;
-    if( todoSort === newTodo.status || todoSort === 'Sort' ){
-      sort = 'visible'
-    } else{
-      sort = 'invisible'
-    }
+    // let sort: any;
+    // if( todoSort === newTodo.status || todoSort === 'Sort' ){
+    //   sort = 'visible'
+    // } else{
+    //   sort = 'invisible'
+    // }
 
     const task: any = [...newTask];
     task.push({
@@ -89,7 +88,7 @@ function App() {
       status: newTodo.status,
       cont: newTodo.cont,
       date: todoDate,
-      sort: sort
+      // sort: sort
     });
     setNewTask(task);
     console.log(task);
@@ -132,13 +131,13 @@ function App() {
       cont: editTodo.cont,
       date: editDate
     };
-    task.map((t) => {
-      if( t.status === todoSort || todoSort === 'Sort' ){
-        t.sort = 'visible'
-      } else {
-        t.sort = 'invisible'
-      }
-    })
+    // task.map((t) => {
+    //   if( t.status === todoSort || todoSort === 'Sort' ){
+    //     t.sort = 'visible'
+    //   } else {
+    //     t.sort = 'invisible'
+    //   }
+    // })
     setNewTask(task);
 
     document.body.classList.remove('visible');
@@ -167,10 +166,10 @@ function App() {
         <NewTask
           todoSort = {todoSort}
           newTask = {newTask}
-          onChangeSort = {onChangeSort}
           onClickEdit = {onClickEdit}
           onClickDelete = {onClickDelete}
-          sortArray = {sortArray}
+          onClickSort = {onClickSort}
+          // sortArray = {sortArray}
         />
 
         <div className='edit_back' id='edit_back'>
