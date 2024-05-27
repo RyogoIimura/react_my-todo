@@ -148,7 +148,7 @@ p {
   border-bottom: 2px solid #000;
 
   &:hover {
-    border-bottom: 2px solid #fff;
+    border-bottom: none;
   }
 }
 
@@ -222,16 +222,19 @@ p {
   justify-content: flex-end;
 }
 
-.new_task  ul li .task_btn_wrapper button, .new_task  ul .task_btn_wrapper p{
+.new_task  ul li .task_btn_wrapper button {
   font-size: 24px;
-  line-height: 1em;
+
+  &.task_btn_dis {
+    margin-left: 20px;
+  }
 }
 
 .new_task  ul li .task_btn_wrapper button {
   border-bottom: 2px solid #000;
 
   &:hover {
-    border-bottom: 2px solid #fff;
+    border-bottom: none;
   }
 }
 
